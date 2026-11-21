@@ -1,0 +1,19 @@
+# see https://hub.docker.com/_/mysql for environment variables
+# note changes port to 43317 (loopback-only classroom demo)
+name: csd230_lecture4_demo
+services:
+  mysql:
+    container_name: csd230_lecture4_demo_mysql
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_DATABASE=csd230_lecture4_demo'
+      - 'MYSQL_PASSWORD=PUBLIC-lecture4-demo-only'
+      - 'MYSQL_ROOT_PASSWORD=PUBLIC-lecture4-root-demo-only'
+      - 'MYSQL_USER=lecture4_demo'
+    ports:
+      - '127.0.0.1:43317:3306'
+    volumes: # stores data in local folder: ./volumes
+      - csd230_lecture4_demo_mysql_data:/var/lib/mysql
+volumes:
+  csd230_lecture4_demo_mysql_data:
+    name: csd230_lecture4_demo_mysql_data

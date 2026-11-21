@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Order Details</title>
+</head>
+<body>
+<h1>Your Orders</h1>
+
+
+<div th:if="${orders.empty}">
+    <p>You have no orders yet.</p>
+</div>
+
+
+<table border="1" th:unless="${orders.empty}">
+    <thead>
+    <tr>
+        <th>Order ID</th>
+        <th>Order Date</th>
+        <th>Products</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.orderDate}"></td>
+        <td>
+            <ul>
+                <li th:each="product : ${order.products}">
+                    <span th:if="${product instanceof T(csd230.lab1.entities.PublicationEntity)}"
+                          th:text="${product.title}"></span>
+                    <span th:if="${product instanceof T(csd230.lab1.entities.TicketEntity)}"
+                          th:text="${product.description}"></span>
+                    (<span th:text="${product.price}"></span>)
+                </li>
+            </ul>
+        </td>
+        <td th:text="${order.totalAmount}"></td>
+    </tr>
+    </tbody>
+</table>
+
+
+<br/>
+<p>
+    <a th:href="@{/books}">Continue Shopping</a>
+</p>
+</body>
+</html>
